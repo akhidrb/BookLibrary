@@ -19,20 +19,25 @@ public class BookManager {
     books = new HashMap<>();
   }
 
-  public void loadFileToBookMap() throws Exception {
-    FileInputStream inputStream = new FileInputStream("books.txt");
-    BufferedReader fileReader = new BufferedReader(new InputStreamReader(inputStream));
-    String line;
-    while ((line = fileReader.readLine()) != null) {
-      String[] elements = line.split(";");
-      Long bookId = Long.parseLong(elements[0]);
-      String title = elements[1];
-      String author = elements[2];
-      String description = elements[3];
-      Book book = createBook(title, author, description);
-      book.setId(bookId);
-      books.put(bookId, book);
+  public void loadFileToBookMap() {
+    try {
+      FileInputStream inputStream = new FileInputStream("books.txt");
+      BufferedReader fileReader = new BufferedReader(new InputStreamReader(inputStream));
+      String line;
+      while ((line = fileReader.readLine()) != null) {
+        String[] elements = line.split(";");
+        Long bookId = Long.parseLong(elements[0]);
+        String title = elements[1];
+        String author = elements[2];
+        String description = elements[3];
+        Book book = createBook(title, author, description);
+        book.setId(bookId);
+        books.put(bookId, book);
+      }
+    } catch(Exception ex) {
+
     }
+
   }
 
   public void manageAction() throws Exception {
